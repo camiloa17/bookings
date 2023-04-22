@@ -67,7 +67,6 @@ func RenderTemplate(responseWriter http.ResponseWriter, templateName string, tem
 }
 
 func CreateTemplateCache() (map[string]*template.Template, error) {
-	//myCache := make(map[string]*template.Template)
 	myCache := map[string]*template.Template{}
 
 	// get all files names *.page.gohtml
@@ -107,65 +106,3 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 
 	return myCache, nil
 }
-
-// func RenderTemplate(responseWriter http.ResponseWriter, templateName string) {
-// 	templatesDirectory := "./templates"
-// 	parsedTemplate, err := template.ParseFiles(
-// 		fmt.Sprintf("%s/%s", templatesDirectory, templateName),
-// 		fmt.Sprintf("%s/base.layout.gohtml", templatesDirectory))
-// 	if err != nil {
-// 		log.Panic(err)
-// 		return
-// 	}
-// 	err = parsedTemplate.Execute(responseWriter, nil)
-
-// 	if err != nil {
-// 		log.Println(err)
-// 	}
-// }
-
-// func RenderTemplate(responseWriter http.ResponseWriter, templateName string) {
-// 	var tmpl *template.Template
-// 	var err error
-
-// 	// check to see if we have the cache template
-// 	_, inMap := templateCache[templateName]
-
-// 	if !inMap {
-// 		// need to create the template
-// 		log.Println("creating template and adding to cache")
-// 		err = createTemplateCache(templateName)
-
-// 		if err != nil {
-// 			log.Println(err)
-// 		}
-// 	} else {
-// 		// we have the template
-// 		log.Println("using cached template")
-// 	}
-
-// 	tmpl = templateCache[templateName]
-
-// 	err = tmpl.Execute(responseWriter, nil)
-
-// 	if err != nil {
-// 		log.Println(err)
-// 	}
-// }
-
-// func createTemplateCache(templateName string) error {
-// 	templatesDirectory := "./templates"
-// 	templates := []string{
-// 		fmt.Sprintf("%s/%s", templatesDirectory, templateName),
-// 		fmt.Sprintf("%s/base.layout.gohtml", templatesDirectory),
-// 	}
-// 	parsedTemplate, err := template.ParseFiles(templates...)
-
-// 	if err != nil {
-// 		return err
-// 	}
-// 	// add template to cache
-// 	templateCache[templateName] = parsedTemplate
-
-// 	return nil
-// }

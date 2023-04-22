@@ -42,10 +42,6 @@ func main() {
 
 	render.NewTemplates(&app)
 
-	// http.HandleFunc("/", handlers.Repo.Home)
-	// http.HandleFunc("/about", handlers.Repo.About)
-
-	// _ = http.ListenAndServe(portNumber, nil)
 	log.Printf("Listening on port %s", portNumber)
 	serve := &http.Server{
 		Addr:    portNumber,
