@@ -2,57 +2,54 @@
 
 {{define "pageTitle"}}
 <title>General page</title>
-{{end}}
+{{ end }}
 
 {{define "content"}}
 <div class="container">
-
-
   <div class="row">
-      <div class="col">
-          <img src="/static/images/generals-quarters.png"
-               class="img-fluid img-thumbnail mx-auto d-block room-image" alt="room image">
-      </div>
+    <div class="col">
+      <img
+        src="/static/images/generals-quarters.png"
+        class="img-fluid img-thumbnail mx-auto d-block room-image"
+        alt="room image"
+      />
+    </div>
   </div>
 
-
   <div class="row">
-      <div class="col">
-          <h1 class="text-center mt-4">General's Quarters</h1>
-          <p>
-              Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-              to remember.
-              Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-              to remember.
-              Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-              to remember.
-              Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-              to remember.
-              Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-              to remember.
-              Your home away form home, set on the majestic waters of the Atlantic Ocean, this will be a vacation
-              to remember.
-          </p>
-      </div>
+    <div class="col">
+      <h1 class="text-center mt-4">General's Quarters</h1>
+      <p>
+        Your home away form home, set on the majestic waters of the Atlantic
+        Ocean, this will be a vacation to remember. Your home away form home,
+        set on the majestic waters of the Atlantic Ocean, this will be a
+        vacation to remember. Your home away form home, set on the majestic
+        waters of the Atlantic Ocean, this will be a vacation to remember. Your
+        home away form home, set on the majestic waters of the Atlantic Ocean,
+        this will be a vacation to remember. Your home away form home, set on
+        the majestic waters of the Atlantic Ocean, this will be a vacation to
+        remember. Your home away form home, set on the majestic waters of the
+        Atlantic Ocean, this will be a vacation to remember.
+      </p>
+    </div>
   </div>
 
-
   <div class="row">
-
-      <div class="col text-center">
-
-          <button id="check-availability-button"  class="btn btn-success">Check Availability</button>
-
-      </div>
+    <div class="col text-center">
+      <button id="check-availability-button" class="btn btn-success">
+        Check Availability
+      </button>
+    </div>
   </div>
-  
 </div>
-{{end}}
+{{ end }}
 
 {{define "js"}}
-  <script>
-    document.getElementById("check-availability-button").addEventListener("click", function () {
-          let html = `
+<script>
+  document
+    .getElementById('check-availability-button')
+    .addEventListener('click', function () {
+      let html = `
           <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
               <div class="form-row">
                   <div class="col">
@@ -69,12 +66,33 @@
               </div>
           </form>
           `;
-          attention.custom({
-              title: 'Choose your dates',
-              msg: html,
+      attention.custom({
+        title: 'Choose your dates',
+        msg: html,
+        willOpen: () => {
+          const elem = document.getElementById('reservation-dates-modal');
+          const rp = new DateRangePicker(elem, {
+            format: 'yyyy-mm-dd',
+            showOnFocus: true,
           });
-      })
-  </script>
-{{end}}
+        },
+        didOpen: () => {
+          document.getElementById('start').removeAttribute('disabled');
+          document.getElementById('end').removeAttribute('disabled');
+        },
+        callback: async () => {
+          const form = document.getElementById('check-availability-form');
+          const formData = new FormData(form);
+          formData.append('csrf_token', '{{.CSRFToken}}');
 
-
+          const getData = await fetch('/search-availability-json', {
+            method: 'post',
+            body: formData,
+          });
+          const json = await getData.json();
+          console.log(json);
+        },
+      });
+    });
+</script>
+{{ end }}

@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/camiloa17/bookings/pkg/config"
-	"github.com/camiloa17/bookings/pkg/handlers"
-	"github.com/camiloa17/bookings/pkg/render"
+	"github.com/camiloa17/bookings/internal/config"
+	"github.com/camiloa17/bookings/internal/handlers"
+	"github.com/camiloa17/bookings/internal/render"
 )
 
 const portNumber = ":8080"

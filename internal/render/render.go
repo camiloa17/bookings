@@ -7,8 +7,9 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/camiloa17/bookings/pkg/config"
-	"github.com/camiloa17/bookings/pkg/models"
+	"github.com/camiloa17/bookings/internal/config"
+	"github.com/camiloa17/bookings/internal/models"
+	"github.com/justinas/nosurf"
 )
 
 //var templateCache = make(map[string]*template.Template)
@@ -21,11 +22,12 @@ func NewTemplates(appConfig *config.AppConfig) {
 }
 
 // AddDefaultData returns default data we want on every page
-func AddDefaultData(templateDate *models.TemplateData) *models.TemplateData {
-	return templateDate
+func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+	td.CSRFToken = nosurf.Token(r)
+	return td
 }
 
-func RenderTemplate(responseWriter http.ResponseWriter, templateName string, templateData *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, templateName string, templateData *models.TemplateData) {
 	var templateCache map[string]*template.Template
 
 	if app.UseCache {
@@ -51,7 +53,7 @@ func RenderTemplate(responseWriter http.ResponseWriter, templateName string, tem
 
 	buf := new(bytes.Buffer)
 
-	templateData = AddDefaultData(templateData)
+	templateData = AddDefaultData(templateData, r)
 
 	err := template.Execute(buf, templateData)
 
@@ -59,7 +61,7 @@ func RenderTemplate(responseWriter http.ResponseWriter, templateName string, tem
 		log.Println(err)
 	}
 
-	_, err = buf.WriteTo(responseWriter)
+	_, err = buf.WriteTo(w)
 
 	if err != nil {
 		log.Println(err)
