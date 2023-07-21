@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"log"
 	"net/http"
 	"time"
@@ -8,6 +9,7 @@ import (
 	"github.com/alexedwards/scs/v2"
 	"github.com/camiloa17/bookings/internal/config"
 	"github.com/camiloa17/bookings/internal/handlers"
+	"github.com/camiloa17/bookings/internal/models"
 	"github.com/camiloa17/bookings/internal/render"
 )
 
@@ -18,6 +20,8 @@ var session *scs.SessionManager
 
 // main is the main application handler
 func main() {
+	// What to store on the Session
+	gob.Register(models.Reservation{})
 	// change this to true when in production
 	app.InProduction = false
 
