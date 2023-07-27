@@ -1,0 +1,17 @@
+mode: set
+github.com/camiloa17/bookings/internal/forms/errors.go:6.44,8.2 1 1
+github.com/camiloa17/bookings/internal/forms/errors.go:11.42,13.18 2 1
+github.com/camiloa17/bookings/internal/forms/errors.go:13.18,15.3 1 1
+github.com/camiloa17/bookings/internal/forms/errors.go:16.2,16.14 1 1
+github.com/camiloa17/bookings/internal/forms/forms.go:17.33,22.2 1 1
+github.com/camiloa17/bookings/internal/forms/forms.go:25.43,26.31 1 1
+github.com/camiloa17/bookings/internal/forms/forms.go:26.31,28.37 2 1
+github.com/camiloa17/bookings/internal/forms/forms.go:28.37,30.4 1 1
+github.com/camiloa17/bookings/internal/forms/forms.go:35.39,37.2 1 1
+github.com/camiloa17/bookings/internal/forms/forms.go:40.29,42.2 1 1
+github.com/camiloa17/bookings/internal/forms/forms.go:45.60,48.34 3 1
+github.com/camiloa17/bookings/internal/forms/forms.go:48.34,51.3 2 1
+github.com/camiloa17/bookings/internal/forms/forms.go:52.2,52.13 1 1
+github.com/camiloa17/bookings/internal/forms/forms.go:56.43,57.40 1 1
+github.com/camiloa17/bookings/internal/forms/forms.go:57.40,60.3 2 1
+github.com/camiloa17/bookings/internal/forms/forms.go:61.2,61.13 1 1

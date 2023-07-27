@@ -1,0 +1,22 @@
+mode: set
+github.com/camiloa17/bookings/internal/handlers/handlers.go:24.49,28.2 1 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:31.34,33.2 1 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:36.68,41.2 3 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:44.69,54.2 5 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:57.75,65.2 3 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:68.79,70.16 2 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:70.16,73.3 2 0
+github.com/camiloa17/bookings/internal/handlers/handlers.go:75.2,88.19 7 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:88.19,97.3 4 0
+github.com/camiloa17/bookings/internal/handlers/handlers.go:99.2,100.66 2 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:104.72,106.2 1 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:109.70,111.2 1 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:114.76,116.2 1 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:119.80,124.2 3 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:132.80,139.16 3 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:139.16,141.3 1 0
+github.com/camiloa17/bookings/internal/handlers/handlers.go:143.2,144.14 2 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:148.71,150.2 1 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:152.82,154.9 2 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:154.9,159.3 4 1
+github.com/camiloa17/bookings/internal/handlers/handlers.go:161.2,168.4 4 0

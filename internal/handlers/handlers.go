@@ -15,7 +15,7 @@ import (
 // Repository pattern
 var Repo *Repository
 
-// Repository is teh repository type
+// Repository is the repository type
 type Repository struct {
 	App *config.AppConfig
 }

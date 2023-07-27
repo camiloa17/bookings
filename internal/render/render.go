@@ -2,6 +2,8 @@ package render
 
 import (
 	"bytes"
+	"errors"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -15,6 +17,8 @@ import (
 //var templateCache = make(map[string]*template.Template)
 
 var app *config.AppConfig
+var pathToTemplates = "./templates"
+var functions = template.FuncMap{}
 
 // NewTemplates sets the config for the template package
 func NewTemplates(appConfig *config.AppConfig) {
@@ -30,7 +34,7 @@ func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateDa
 	return td
 }
 
-func RenderTemplate(w http.ResponseWriter, r *http.Request, templateName string, templateData *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, templateName string, templateData *models.TemplateData) error {
 	var templateCache map[string]*template.Template
 
 	if app.UseCache {
@@ -42,6 +46,7 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, templateName string,
 		if err != nil {
 			templateCache = app.TemplateCache
 			log.Println(err)
+			return errors.New("can't get templates from cache")
 		} else {
 			templateCache = tc
 		}
@@ -51,7 +56,8 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, templateName string,
 	template, ok := templateCache[templateName]
 
 	if !ok {
-		log.Fatal("no template available in cache")
+		log.Println("no template available in cache")
+		return errors.New("can't get templates from cache")
 	}
 
 	buf := new(bytes.Buffer)
@@ -62,13 +68,17 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, templateName string,
 
 	if err != nil {
 		log.Println(err)
+		return err
 	}
 
 	_, err = buf.WriteTo(w)
 
 	if err != nil {
 		log.Println(err)
+		return err
 	}
+
+	return nil
 }
 
 func CreateTemplateCache() (map[string]*template.Template, error) {
@@ -76,7 +86,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 
 	// get all files names *.page.gohtml
 
-	pages, err := filepath.Glob("./templates/*.page.gohtml")
+	pages, err := filepath.Glob(fmt.Sprintf("%s/*.page.gohtml", pathToTemplates))
 
 	if err != nil {
 		return myCache, err
@@ -87,12 +97,12 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 		// removes the path and leave the last part of the url
 		name := filepath.Base(page)
 
-		templateSet, err := template.New(name).ParseFiles(page)
+		templateSet, err := template.New(name).Funcs(functions).ParseFiles(page)
 		if err != nil {
 			return myCache, err
 		}
 
-		templatesRoute := "./templates/*.layout.gohtml"
+		templatesRoute := fmt.Sprintf("%s/*.layout.gohtml", pathToTemplates)
 		matches, err := filepath.Glob(templatesRoute)
 		if err != nil {
 			return myCache, err
